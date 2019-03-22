@@ -32,6 +32,23 @@ router.get('/', async (req, res) => {
     }
 })
 
+// api/projects/:id/actions
+
+router.get('/:id/actions', (req, res) => {
+    const id = req.params.id;
+    Projects.getProjectActions(id)
+    .then(actions => {
+        if (actions.length > 0) {
+            res.status(200).json(actions);
+        } else {
+            res.status(404).json({error: "That project can not be found" })
+        }
+    })
+    .catch(err => {
+        res.status(500).json({ error: "The actions for this project could not be found" })
+    })
+})
+
 // api/projects/:id
 
 // U - Update

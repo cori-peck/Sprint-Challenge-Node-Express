@@ -45,6 +45,17 @@ router.get('/', async (req, res) => {
 
 // api/actions/:id
 
+// R - Read Individual Actions
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const action = await Actions.get(id);
+        res.status(200).json(action);
+    } catch {
+        res.status(500).json({ error: "Could not find that action" })
+    }
+})
+
 // U - Update
 router.put('/:id', async (req, res) => {
     try {

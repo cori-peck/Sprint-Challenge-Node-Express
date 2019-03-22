@@ -41,7 +41,7 @@ router.get('/:id/actions', (req, res) => {
         if (actions.length > 0) {
             res.status(200).json(actions);
         } else {
-            res.status(404).json({error: "That project can not be found" })
+            res.status(404).json({error: "That project has no actions" })
         }
     })
     .catch(err => {
@@ -50,6 +50,17 @@ router.get('/:id/actions', (req, res) => {
 })
 
 // api/projects/:id
+
+// R - Read Individual Projects
+router.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const project = await Projects.get(id);
+        res.status(200).json(project);
+    } catch {
+        res.status(500).json({ error: "Could not find that project" })
+    }
+})
 
 // U - Update
 router.put('/:id', async (req, res) => {
@@ -94,7 +105,7 @@ router.delete('/:id', async (req, res) => {
                 }
             })
         } 
-        }).catch(err => {  
+    }).catch(err => {  
             res.status(404).json({error: "That project can not be found" })
         })
     } catch {

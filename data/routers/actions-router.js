@@ -6,7 +6,7 @@ const Actions = require('../helpers/actionModel');
 const Projects = require('../helpers/projectModel');
 
 
-//C - Create
+// C - Create
 router.post('/', async (req, res) => {
     try {
         const { project_id, description, notes } = req.body;
@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-//R - Read
+// R - Read
 router.get('/', async (req, res) => {
     try {
         const actions = await Actions.get();
@@ -41,5 +41,24 @@ router.get('/', async (req, res) => {
     }
 })
 
+// U - Update
+router.put('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { project_id, description, notes } = req.body;
+        if(!project_id || !description || !notes) {
+            res.status(400).json({message: "Action must have a project id, a description AND notes" })
+        } else {
+            const updateAction = await Actions.update(id, req.body);
+            if (!updateAction) {
+                res.status(404).json({ error: "That action id can not be found" })
+            } else {
+                res.status(200).json(updateAction);
+            }
+        }
+    } catch {
+        res.status(500).json({ error: "Could not update action"})
+    }
+})
 
 module.exports = router

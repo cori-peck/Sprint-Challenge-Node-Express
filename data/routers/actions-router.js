@@ -6,6 +6,8 @@ const Actions = require('../helpers/actionModel');
 const Projects = require('../helpers/projectModel');
 
 
+// api/actions
+
 // C - Create
 router.post('/', async (req, res) => {
     try {
@@ -41,6 +43,8 @@ router.get('/', async (req, res) => {
     }
 })
 
+// api/actions/:id
+
 // U - Update
 router.put('/:id', async (req, res) => {
     try {
@@ -58,6 +62,23 @@ router.put('/:id', async (req, res) => {
         }
     } catch {
         res.status(500).json({ error: "Could not update action"})
+    }
+})
+
+// D - Delete
+router.delete('/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const action = await Actions.get(id);
+        if(action) {
+            await Actions.remove(id).then(deleted => {
+                if (deleted === 1) {
+                    return res.status(204).end();
+                }
+            })
+        }
+    } catch {
+        res.status(500).json({ error: "Could not delete action" });
     }
 })
 

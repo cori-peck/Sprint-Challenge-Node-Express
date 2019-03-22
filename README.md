@@ -26,13 +26,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+    I learned that Express is like React for the backend and I learned about it's routing functionality.
+
 - [ ] Describe Middleware?
+
+    Middleware is any software that goes between the server code and the execution.
 
 - [ ] Describe a Resource?
 
+    A resource is a set of information. It is requested or edited by interfacing with the API.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+    An HTTP status code, for success usually 200 or 201.
+
 - [ ] How can we partition our application into sub-applications?
+
+    We can separate it into individual files that are organized by the logic of each file's functionality.
 
 ## Project Setup
 
